@@ -8,13 +8,27 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+struct Meme{
+    var topText: String?
+    var bottomText: String?
+    var memedImage: UIImage?
+    var originalImage: UIImageView?
+    
+    init(topText: String, bottomText: String, originalImage: UIImageView, memedImage: UIImage) {
+        self.topText = topText
+        self.bottomText = bottomText
+        self.originalImage = originalImage
+        self.memedImage = memedImage
+    }
+}
 
+class ViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
     }
-
-
+    
+    
 }
 
