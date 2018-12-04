@@ -21,17 +21,21 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJc-tb-dsv" userLabel="TopToolbar">
                                 <rect key="frame" x="0.0" y="526" width="0.0" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" id="ona-U2-0tE"/>
+                                    <barButtonItem systemItem="action" id="ona-U2-0tE"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="bG2-M9-2AS"/>
+                                    <barButtonItem systemItem="cancel" id="eNX-5W-H2P"/>
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe7-T0-G1B" userLabel="BottomToolbar">
-                                <rect key="frame" x="0.0" y="1295" width="0.0" height="49"/>
+                                <rect key="frame" x="0.0" y="1300" width="0.0" height="44"/>
                                 <items>
-                                    <barButtonItem title="Item" id="vmo-Fg-QAe"/>
+                                    <barButtonItem systemItem="camera" id="vmo-Fg-QAe"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ZvC-7V-2nY"/>
+                                    <barButtonItem title="Album" id="xeG-LT-EiL"/>
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0VD-oX-QTv">
-                                <rect key="frame" x="1" y="89" width="412" height="723"/>
+                                <rect key="frame" x="1" y="89" width="412" height="728"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
