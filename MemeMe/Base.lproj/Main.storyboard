@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,30 +15,37 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJc-tb-dsv" userLabel="TopToolbar">
-                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="342" width="92" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="ona-U2-0tE"/>
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe7-T0-G1B" userLabel="BottomToolbar">
-                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <rect key="frame" x="0.0" y="1014" width="92" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="vmo-Fg-QAe"/>
                                 </items>
                             </toolbar>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0VD-oX-QTv">
+                                <rect key="frame" x="1" y="65" width="412" height="626"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Qe7-T0-G1B" firstAttribute="top" secondItem="0VD-oX-QTv" secondAttribute="bottom" constant="1" id="5Fx-Y4-kI5"/>
+                            <constraint firstItem="0VD-oX-QTv" firstAttribute="top" secondItem="BJc-tb-dsv" secondAttribute="bottom" constant="1" id="EEg-9i-e73"/>
                             <constraint firstItem="BJc-tb-dsv" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Ie4-yS-0gc"/>
                             <constraint firstItem="Qe7-T0-G1B" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ndr-Di-fiB"/>
                             <constraint firstItem="Qe7-T0-G1B" firstAttribute="leading" secondItem="BJc-tb-dsv" secondAttribute="leading" id="OAj-Ly-vKy"/>
                             <constraint firstItem="BJc-tb-dsv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PHF-10-KRL"/>
                             <constraint firstItem="Qe7-T0-G1B" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="PW3-56-SJt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0VD-oX-QTv" secondAttribute="trailing" constant="1" id="c0g-AC-OiB"/>
                             <constraint firstItem="Qe7-T0-G1B" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="e2y-xZ-8GB"/>
+                            <constraint firstItem="0VD-oX-QTv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="1" id="iha-N2-exA"/>
                             <constraint firstItem="Qe7-T0-G1B" firstAttribute="trailing" secondItem="BJc-tb-dsv" secondAttribute="trailing" id="jx9-p3-EiW"/>
                             <constraint firstItem="BJc-tb-dsv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="s53-bC-Nq0"/>
                         </constraints>
@@ -47,6 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="52.989130434782609" y="27.536231884057973"/>
         </scene>
     </scenes>
 </document>
