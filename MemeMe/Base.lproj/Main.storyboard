@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,26 +15,26 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJc-tb-dsv" userLabel="TopToolbar">
-                                <rect key="frame" x="0.0" y="342" width="92" height="44"/>
+                                <rect key="frame" x="0.0" y="526" width="0.0" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="ona-U2-0tE"/>
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe7-T0-G1B" userLabel="BottomToolbar">
-                                <rect key="frame" x="0.0" y="1014" width="92" height="44"/>
+                                <rect key="frame" x="0.0" y="1295" width="0.0" height="49"/>
                                 <items>
                                     <barButtonItem title="Item" id="vmo-Fg-QAe"/>
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0VD-oX-QTv">
-                                <rect key="frame" x="1" y="65" width="412" height="626"/>
+                                <rect key="frame" x="1" y="89" width="412" height="723"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="Qe7-T0-G1B" firstAttribute="top" secondItem="0VD-oX-QTv" secondAttribute="bottom" constant="1" id="5Fx-Y4-kI5"/>
                             <constraint firstItem="0VD-oX-QTv" firstAttribute="top" secondItem="BJc-tb-dsv" secondAttribute="bottom" constant="1" id="EEg-9i-e73"/>
