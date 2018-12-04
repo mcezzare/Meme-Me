@@ -24,6 +24,12 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+    <key>NSCameraUsageDescription</key>
+    <string>Tirar fotos para o app.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Carregar fotos do seu album no app.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Salvar seus memes</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
