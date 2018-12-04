@@ -83,7 +83,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: From UIImagePickerControllerDelegate
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("User selected an intem from Gallery")
         let separatorString="###############################################################"
         print(separatorString)
@@ -93,7 +93,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print(info.keys)
         print(separatorString)
         
-        if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             imagePickerView.image = image
             print("Image Selected: \(image)")
             print()
