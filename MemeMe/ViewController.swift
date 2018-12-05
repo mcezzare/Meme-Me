@@ -63,17 +63,26 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: User Actions
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        present(pickerController, animated: true, completion: nil)
+        self.getAnImage(source: "album")
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        self.getAnImage(source: "camera")
+    }
+    
+    // MARK: Choose image from album or camera
+    func  getAnImage( source: String ){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        pickerController.sourceType = .camera
+        
+        if source == "album" {
+            pickerController.sourceType = .photoLibrary
+        } else if source == "camera"{
+            pickerController.sourceType = .camera
+        }
+        
         present(pickerController, animated: true, completion: nil)
+        
     }
     
     @IBAction func resetUI(){
@@ -176,7 +185,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             originalImage: imagePickerView!,
                             memedImage: memedImage
             )
-            print("DUMP MEME STRUCT:")
+//            print("DUMP MEME STRUCT:")
             print(meme)
             UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
