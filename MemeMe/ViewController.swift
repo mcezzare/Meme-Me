@@ -93,23 +93,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: From UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        print("User selected an intem from Gallery")
-        let separatorString="###############################################################"
-        print(separatorString)
-        print(info)
-        print(separatorString)
-        print("Keys")
-        print(info.keys)
-        print(separatorString)
-        
+//        print("User selected an intem from Gallery")
+//        let separatorString="###############################################################"
+//        print(separatorString)
+//        print(info)
+//        print(separatorString)
+//        print("Keys")
+//        print(info.keys)
+//        print(separatorString)
+//
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             imagePickerView.image = image
-            print("Image Selected: \(image)")
-            print()
+//            print("Image Selected: \(image)")
+//            print()
             self.currentImageSelected = image
         }
-        print("DUMP:")
-        print(self.currentImageSelected!)
+//        print("DUMP:")
+//        print(self.currentImageSelected!)
         dismiss(animated: true, completion: nil)
     }
     
@@ -186,7 +186,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             memedImage: memedImage
             )
 //            print("DUMP MEME STRUCT:")
-            print(meme)
+//            print(meme)
             UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
         }
@@ -220,14 +220,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+//            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+//            ac.addAction(UIAlertAction(title: "OK", style: .default))
+//            present(ac, animated: true)
+            notifyUser(title: "Save error", message: error.localizedDescription)
         } else {
-            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+//            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+//            ac.addAction(UIAlertAction(title: "OK", style: .default))
+//            present(ac, animated: true)
+            notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
         }
+    }
+    
+    func notifyUser(title: String, message: String){
+        let ac = UIAlertController(title: title, message: message , preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+        
     }
     
     // MARK: Share the Meme
