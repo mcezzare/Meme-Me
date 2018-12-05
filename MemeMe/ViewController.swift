@@ -92,24 +92,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: From UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        print("User selected an intem from Gallery")
-//        let separatorString="###############################################################"
-//        print(separatorString)
-//        print(info)
-//        print(separatorString)
-//        print("Keys")
-//        print(info.keys)
-//        print(separatorString)
-//
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print("User selected an intem from Gallery")
+        let separatorString="###############################################################"
+        print(separatorString)
+        print(info)
+        print(separatorString)
+        print("Keys")
+        print(info.keys)
+        print(separatorString)
+        
+        if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             imagePickerView.image = image
-//            print("Image Selected: \(image)")
-//            print()
+            print("Image Selected: \(image)")
+            print()
             self.currentImageSelected = image
         }
-//        print("DUMP:")
-//        print(self.currentImageSelected!)
+        print("DUMP:")
+        print(self.currentImageSelected!)
         dismiss(animated: true, completion: nil)
     }
     
@@ -130,7 +130,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
-        let memeTextAttributes:[NSAttributedString.Key : Any] = [
+        let memeTextAttributes:[NSAttributedStringKey : Any] = [
             .strokeColor: UIColor.black,
             .foregroundColor: UIColor.clear,
             .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 80)!,
@@ -143,16 +143,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.backgroundColor = UIColor.clear
         textField.text = defaulText
     }
+
     
     
     // MARK : Fix keyboard position
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
     }
     
     
@@ -164,10 +165,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
-    
+
     @objc func keyboardWillHide(_ notification:Notification){
         view.frame.origin.y = 0
     }
@@ -186,7 +187,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             memedImage: memedImage
             )
 //            print("DUMP MEME STRUCT:")
-//            print(meme)
+            print(meme)
             UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
         }
