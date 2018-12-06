@@ -33,10 +33,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var toolbarTopBootom: UIToolbar!
     @IBOutlet weak var toolbarBottomBootom: UIToolbar!
     @IBOutlet weak var cancelButton : UIBarButtonItem!
+    @IBOutlet weak var shareButton : UIBarButtonItem!
     
     //MARK : Instance names
     var currentImageSelected:UIImage?
-    //    var currentMemedImage:UIImageView?
     
     
     //MARK: Delegates
@@ -53,6 +53,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewWillAppear(_ animated: Bool) {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        if let image = imagePickerView.image {
+                shareButton.isEnabled = true
+        } else{
+            shareButton.isEnabled = false
+        }
+        
         subscribeToKeyboardNotifications()
     }
     
@@ -88,28 +94,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func resetUI(){
         configureUI()
         self.imagePickerView.image = nil
+        shareButton.isEnabled = false
         
     }
     
     // MARK: From UIImagePickerControllerDelegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        print("User selected an intem from Gallery")
-//        let separatorString="###############################################################"
-//        print(separatorString)
-//        print(info)
-//        print(separatorString)
-//        print("Keys")
-//        print(info.keys)
-//        print(separatorString)
-//
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             imagePickerView.image = image
-//            print("Image Selected: \(image)")
-//            print()
             self.currentImageSelected = image
         }
-//        print("DUMP:")
-//        print(self.currentImageSelected!)
         dismiss(animated: true, completion: nil)
     }
     
@@ -125,34 +120,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         configureTextProperties(textFieldBottom, "BOTTOM")
     }
     
-    
     func configureTextProperties(_ textField: UITextField, _ defaulText: String) {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         
-        let memeTextAttributes:[NSAttributedString.Key : Any] = [
+        let memeTextAttributes:[NSAttributedStringKey : Any] = [
             .strokeColor: UIColor.black,
-            .foregroundColor: UIColor.clear,
-            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 80)!,
-            .strokeWidth: -3.0,
+            .foregroundColor: UIColor.white,
+            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            .strokeWidth: Float(5.0),
             .paragraphStyle: paragraphStyle
         ]
         textField.attributedText = NSAttributedString(string: defaulText,attributes: memeTextAttributes)
-        
+
         // make the background transparent
         textField.backgroundColor = UIColor.clear
         textField.text = defaulText
     }
     
     
+    
     // MARK : Fix keyboard position
     func subscribeToKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
     }
     
     
@@ -164,7 +159,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func getKeyboardHeight(_ notification:Notification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
     
@@ -173,10 +168,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: Meme Operations
-    @IBAction func saveMeme(){
-        save()
-    }
-    
     func save() {
         if let memedImage = generateMemedImage() as? UIImage {
             // Create the meme
@@ -185,23 +176,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             originalImage: imagePickerView!,
                             memedImage: memedImage
             )
-//            print("DUMP MEME STRUCT:")
-//            print(meme)
             UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
         }
     }
     
-    // MARK: Remove toolBar from ScreenShot
-    func setToolbarHidden(_ hidden: Bool,
-                          animated: Bool){
-        self.toolbarTopBootom.isHidden = hidden
-        self.toolbarBottomBootom.isHidden = hidden
-    }
-    
-    
+    // MARK: Get the screenshot of current Meme
     func generateMemedImage() -> UIImage {
-        
         // TODO: Hide toolbar and navbar
         setToolbarHidden(true,animated: true)
         // Render view to an image
@@ -215,33 +196,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
     }
     
+    // MARK: Remove toolBar from ScreenShot
+    func setToolbarHidden(_ hidden: Bool,
+                          animated: Bool){
+        self.toolbarTopBootom.isHidden = hidden
+        self.toolbarBottomBootom.isHidden = hidden
+    }
     
     //  MARK: Alert on operation save
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
         if let error = error {
             // we got back an error!
-//            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-//            ac.addAction(UIAlertAction(title: "OK", style: .default))
-//            present(ac, animated: true)
             notifyUser(title: "Save error", message: error.localizedDescription)
+            print("error: \(error.localizedDescription)")
         } else {
-//            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
-//            ac.addAction(UIAlertAction(title: "OK", style: .default))
-//            present(ac, animated: true)
             notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
+            print("success : File saved")
         }
     }
     
     func notifyUser(title: String, message: String){
         let ac = UIAlertController(title: title, message: message , preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
-//        present(ac, animated: true, completion: nil)
-        present(ac, animated: true)
-        
+        present(ac, animated: true, completion: nil)
     }
     
     // MARK: Share the Meme
-    
     @IBAction func share() {
         save()
         let items = [generateMemedImage()]
