@@ -126,13 +126,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         let memeTextAttributes:[NSAttributedStringKey : Any] = [
             .strokeColor: UIColor.black,
-            .foregroundColor: UIColor.clear,
-            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 80)!,
-            .strokeWidth: -3.0,
+            .foregroundColor: UIColor.white,
+            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            .strokeWidth: Float(5.0),
             .paragraphStyle: paragraphStyle
         ]
         textField.attributedText = NSAttributedString(string: defaulText,attributes: memeTextAttributes)
-        
+
         // make the background transparent
         textField.backgroundColor = UIColor.clear
         textField.text = defaulText
@@ -218,7 +218,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func notifyUser(title: String, message: String){
         let ac = UIAlertController(title: title, message: message , preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(ac, animated: true, completion: nil)
+        present(ac, animated: true, completion: nil)
     }
     
     // MARK: Share the Meme
@@ -226,18 +226,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         save()
         let items = [generateMemedImage()]
         let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        ac.completionWithItemsHandler = {
-            (activity, success, items, error) in
-            if(success && error == nil){
-                //Do Work
-                self.dismiss(animated: true, completion: nil);
-                print("imagem salva")
-            }
-            else if (error != nil){
-                //log the error
-                print("erro ao salvar a imagem")
-            }
-        };
         present(ac, animated: true)
     }
     
