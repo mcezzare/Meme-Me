@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="landscape">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BJc-tb-dsv" userLabel="TopToolbar">
-                                <rect key="frame" x="0.0" y="0.0" width="667" height="32"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <barButtonItem systemItem="action" id="ona-U2-0tE">
                                         <connections>
@@ -35,7 +35,7 @@
                                 </items>
                             </toolbar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe7-T0-G1B" userLabel="BottomToolbar">
-                                <rect key="frame" x="0.0" y="343" width="667" height="32"/>
+                                <rect key="frame" x="0.0" y="635" width="375" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="cr4-qo-Ft8"/>
                                 </constraints>
@@ -54,18 +54,18 @@
                                 </items>
                             </toolbar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0VD-oX-QTv">
-                                <rect key="frame" x="1" y="33" width="665" height="309"/>
+                                <rect key="frame" x="1" y="65" width="373" height="569"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="NMm-Im-g1X" userLabel="TOP">
-                                <rect key="frame" x="20" y="80" width="627" height="24"/>
+                                <rect key="frame" x="20" y="100" width="335" height="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-dH-HRI" userLabel="BOTTOM">
-                                <rect key="frame" x="20" y="271" width="627" height="24"/>
+                                <rect key="frame" x="20" y="551" width="335" height="36"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
@@ -95,6 +95,7 @@
                     </view>
                     <connections>
                         <outlet property="cameraButton" destination="vmo-Fg-QAe" id="hR7-xH-Xmu"/>
+                        <outlet property="cancelButton" destination="eNX-5W-H2P" id="033-wW-UG1"/>
                         <outlet property="imagePickerView" destination="0VD-oX-QTv" id="4ST-eU-mgH"/>
                         <outlet property="shareButton" destination="ona-U2-0tE" id="Vep-gq-hFr"/>
                         <outlet property="textFieldBottom" destination="ymd-dH-HRI" id="FlJ-8Y-mMo"/>
