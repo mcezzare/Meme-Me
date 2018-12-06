@@ -93,23 +93,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: From UIImagePickerControllerDelegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        print("User selected an intem from Gallery")
-        let separatorString="###############################################################"
-        print(separatorString)
-        print(info)
-        print(separatorString)
-        print("Keys")
-        print(info.keys)
-        print(separatorString)
         
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             imagePickerView.image = image
-            print("Image Selected: \(image)")
-            print()
             self.currentImageSelected = image
         }
-        print("DUMP:")
-        print(self.currentImageSelected!)
         dismiss(animated: true, completion: nil)
     }
     
@@ -124,7 +112,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         configureTextProperties(textFieldTop, "TOP")
         configureTextProperties(textFieldBottom, "BOTTOM")
     }
-    
     
     func configureTextProperties(_ textField: UITextField, _ defaulText: String) {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -143,7 +130,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         textField.backgroundColor = UIColor.clear
         textField.text = defaulText
     }
-
+    
     
     
     // MARK : Fix keyboard position
@@ -168,16 +155,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
     }
-
+    
     @objc func keyboardWillHide(_ notification:Notification){
         view.frame.origin.y = 0
     }
     
     // MARK: Meme Operations
-    @IBAction func saveMeme(){
-        save()
-    }
-    
     func save() {
         if let memedImage = generateMemedImage() as? UIImage {
             // Create the meme
@@ -186,23 +169,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             originalImage: imagePickerView!,
                             memedImage: memedImage
             )
-//            print("DUMP MEME STRUCT:")
-            print(meme)
+            
             UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
         }
     }
     
-    // MARK: Remove toolBar from ScreenShot
-    func setToolbarHidden(_ hidden: Bool,
-                          animated: Bool){
-        self.toolbarTopBootom.isHidden = hidden
-        self.toolbarBottomBootom.isHidden = hidden
-    }
-    
-    
+    // MARK: Get the screenshot of current Meme
     func generateMemedImage() -> UIImage {
-        
         // TODO: Hide toolbar and navbar
         setToolbarHidden(true,animated: true)
         // Render view to an image
@@ -216,33 +190,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return memedImage
     }
     
+    // MARK: Remove toolBar from ScreenShot
+    func setToolbarHidden(_ hidden: Bool,
+                          animated: Bool){
+        self.toolbarTopBootom.isHidden = hidden
+        self.toolbarBottomBootom.isHidden = hidden
+    }
     
     //  MARK: Alert on operation save
     @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
-//            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
-//            ac.addAction(UIAlertAction(title: "OK", style: .default))
-//            present(ac, animated: true)
             notifyUser(title: "Save error", message: error.localizedDescription)
+            print("error: \(error.localizedDescription)")
         } else {
-//            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
-//            ac.addAction(UIAlertAction(title: "OK", style: .default))
-//            present(ac, animated: true)
             notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
+            print("success : File saved")
         }
     }
     
     func notifyUser(title: String, message: String){
         let ac = UIAlertController(title: title, message: message , preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
-//        present(ac, animated: true, completion: nil)
-        present(ac, animated: true)
+        self.present(ac, animated: true, completion: nil)
+        //        self.present(ac, animated: true)
         
     }
     
     // MARK: Share the Meme
-    
     @IBAction func share() {
         save()
         let items = [generateMemedImage()]
