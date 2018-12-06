@@ -33,10 +33,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var toolbarTopBootom: UIToolbar!
     @IBOutlet weak var toolbarBottomBootom: UIToolbar!
     @IBOutlet weak var cancelButton : UIBarButtonItem!
+    @IBOutlet weak var shareButton : UIBarButtonItem!
     
     //MARK : Instance names
     var currentImageSelected:UIImage?
-    //    var currentMemedImage:UIImageView?
     
     
     //MARK: Delegates
@@ -53,6 +53,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewWillAppear(_ animated: Bool) {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        if let image = imagePickerView.image {
+                shareButton.isEnabled = true
+        } else{
+            shareButton.isEnabled = false
+        }
+        
         subscribeToKeyboardNotifications()
     }
     
@@ -88,6 +94,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func resetUI(){
         configureUI()
         self.imagePickerView.image = nil
+        shareButton.isEnabled = false
         
     }
     
@@ -169,7 +176,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                             originalImage: imagePickerView!,
                             memedImage: memedImage
             )
-            
             UIImageWriteToSavedPhotosAlbum(memedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
             
         }
@@ -198,7 +204,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //  MARK: Alert on operation save
-    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
         if let error = error {
             // we got back an error!
             notifyUser(title: "Save error", message: error.localizedDescription)
@@ -213,8 +219,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let ac = UIAlertController(title: title, message: message , preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(ac, animated: true, completion: nil)
-        //        self.present(ac, animated: true)
-        
     }
     
     // MARK: Share the Meme
