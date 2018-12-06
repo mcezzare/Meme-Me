@@ -226,6 +226,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         save()
         let items = [generateMemedImage()]
         let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        ac.completionWithItemsHandler = {
+            (activity, success, items, error) in
+            if(success && error == nil){
+                //Do Work
+                self.dismiss(animated: true, completion: nil);
+                print("imagem salva")
+            }
+            else if (error != nil){
+                //log the error
+                print("erro ao salvar a imagem")
+            }
+        };
         present(ac, animated: true)
     }
     
