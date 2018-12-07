@@ -14,6 +14,7 @@ struct Meme{
     var memedImage: UIImage?
     var originalImage: UIImageView?
     
+    // MARK: init is not necessary
     init(topText: String, bottomText: String, originalImage: UIImageView, memedImage: UIImage) {
         self.topText = topText
         self.bottomText = bottomText
@@ -54,11 +55,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        if let image = imagePickerView.image {
-            shareButton.isEnabled = true
-        } else{
-            shareButton.isEnabled = false
-        }
+        shareButton.isEnabled = imagePickerView.image != nil
+        //        if let image = imagePickerView.image {
+        //            shareButton.isEnabled = true
+        //        } else{
+        //            shareButton.isEnabled = false
+        //        }
         
         subscribeToKeyboardNotifications()
     }
@@ -131,11 +133,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
             .strokeWidth: Float(-5.0),
             .paragraphStyle: paragraphStyle,
-        ]
+            // make the background transparent
+            .backgroundColor: UIColor.clear,
+            ]
         textField.attributedText = NSAttributedString(string: defaulText,attributes: memeTextAttributes)
-        
-        // make the background transparent
-        textField.backgroundColor = UIColor.clear
         textField.text = defaulText
     }
     
@@ -148,9 +149,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func unsubscribeFromKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self)
+        /*
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-        
+        */
     }
     
     
