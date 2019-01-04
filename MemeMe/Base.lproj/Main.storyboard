@@ -51,7 +51,15 @@
                             <outlet property="delegate" destination="gPZ-Y2-8e1" id="4Sn-cp-S3q"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sent Memes" id="hJ9-T7-Tew"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="hJ9-T7-Tew">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="a3L-H0-Hfy" userLabel="Add">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="11L-GA-OEh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypM-JO-hPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -135,7 +143,13 @@
                             <outlet property="delegate" destination="UFT-L6-bNm" id="TOi-85-f9X"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Sent Memes" id="vuv-fK-85I"/>
+                    <navigationItem key="navigationItem" title="Sent Memes" id="vuv-fK-85I">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="buT-tq-hYq" userLabel="Add">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="tHQ-sc-5ri"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9BK-6i-JOq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -238,11 +252,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="822" y="-98"/>
+            <point key="canvasLocation" x="1132" y="-49"/>
         </scene>
     </scenes>
     <resources>
         <image name="grid" width="30" height="30"/>
         <image name="list" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="11L-GA-OEh"/>
+    </inferredMetricsTieBreakers>
 </document>
