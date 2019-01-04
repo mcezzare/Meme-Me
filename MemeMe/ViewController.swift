@@ -164,11 +164,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateMemedImage() -> UIImage {
         // MARK: Hide toolbar and navbar
         setToolbarHidden(true,animated: true)
+        // MARK: Capture all Screen
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
+        //        //MARK: capture only the UIImage view
+        //        UIGraphicsBeginImageContext(self.imagePickerView.frame.size)
+        //        view.drawHierarchy(in: self.imagePickerView.frame, afterScreenUpdates: true)
+        //        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        //        UIGraphicsEndImageContext()
+        
         
         // MARK: Show toolbar and navbar
         setToolbarHidden(false,animated: true)
@@ -200,6 +208,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                 originalImage: self.imagePickerView!,
                                 memedImage: items[0]
                 )
+                // Add it to the memes array in the Application Delegate
+                let object = UIApplication.shared.delegate
+                let appDelegate = object as! AppDelegate
+                appDelegate.memes.append(meme)
+                
                 UIImageWriteToSavedPhotosAlbum(meme.memedImage!, nil, nil, nil)
                 self.notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
             } else if( error != nil){
