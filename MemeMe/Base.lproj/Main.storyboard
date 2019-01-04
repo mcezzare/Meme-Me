@@ -31,7 +31,7 @@
         <!--Sent Memes-->
         <scene sceneID="VXt-Vi-SDc">
             <objects>
-                <tableViewController title="Sent Memes" id="gPZ-Y2-8e1" sceneMemberID="viewController">
+                <tableViewController title="Sent Memes" id="gPZ-Y2-8e1" customClass="SentMemesTableViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5On-mH-Gnm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,6 +60,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="sentMemesTableView" destination="5On-mH-Gnm" id="qGk-5S-vrc"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypM-JO-hPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -252,7 +255,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1132" y="-49"/>
+            <point key="canvasLocation" x="970" y="-295"/>
         </scene>
     </scenes>
     <resources>
