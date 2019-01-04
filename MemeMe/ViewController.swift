@@ -8,21 +8,6 @@
 
 import UIKit
 
-struct Meme{
-    var topText: String?
-    var bottomText: String?
-    var memedImage: UIImage?
-    var originalImage: UIImageView?
-    
-    // MARK: init is not necessary
-    init(topText: String, bottomText: String, originalImage: UIImageView, memedImage: UIImage) {
-        self.topText = topText
-        self.bottomText = bottomText
-        self.originalImage = originalImage
-        self.memedImage = memedImage
-    }
-}
-
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     // MARK: Outlets
     
@@ -151,9 +136,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self)
         /*
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-        */
+         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
+         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
+         */
     }
     
     
