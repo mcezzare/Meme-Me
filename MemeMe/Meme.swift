@@ -13,10 +13,10 @@ struct Meme {
     var topText: String
     var bottomText: String
     var memedImage: UIImage
-    var originalImage: UIImageView
+    var originalImage: UIImage
     
     // MARK: init is not necessary
-    init(topText: String, bottomText: String, originalImage: UIImageView, memedImage: UIImage) {
+    init(topText: String, bottomText: String, originalImage: UIImage, memedImage: UIImage) {
         self.topText = topText
         self.bottomText = bottomText
         self.originalImage = originalImage

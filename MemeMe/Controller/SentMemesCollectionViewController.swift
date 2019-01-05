@@ -17,12 +17,12 @@ class SentMemesCollectionViewController: UICollectionViewController {
     
     // MARK: Shared object
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resetUIDefaultState()
     }
-
+    
     private func resetUIDefaultState(){
         sentMemesCollectionView.reloadData()
         //sentMemesCollectionView.allowsMultipleSelection = true
@@ -30,7 +30,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
         flowLayout.minimumInteritemSpacing = 1
         flowLayout.itemSize = CGSize(width: 135, height: 135)
     }
-
+    
     // MARK: Init data and datasources
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return appDelegate.memes.count

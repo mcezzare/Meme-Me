@@ -9,8 +9,8 @@
 import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
-    // MARK: Outlets
     
+    // MARK: Outlets
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton : UIBarButtonItem!
     @IBOutlet weak var textFieldTop: UITextField!
@@ -21,11 +21,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var cancelButton : UIBarButtonItem!
     @IBOutlet weak var shareButton : UIBarButtonItem!
     
-    //MARK : Instance names
+    // MARK: Instance names
     var currentImageSelected:UIImage?
     
+    // MARK: Editing Mode for a current Meme
+    var memeToModify:Meme!
     
-    //MARK: Delegates
+    // MARK: Delegates
     let myTextFieldDelegate = MyTextFieldDelegate()
     
     override func viewDidLoad() {
@@ -106,13 +108,22 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func configureUI(){
         configureTextProperties(textFieldTop, "TOP")
         configureTextProperties(textFieldBottom, "BOTTOM")
+        if self.memeToModify != nil {
+            self.imagePickerView.image = self.memeToModify.originalImage
+        }
     }
     
     func configureTextProperties(_ textField: UITextField, _ defaulText: String) {
         textField.delegate = self.myTextFieldDelegate
         textField.defaultTextAttributes = memeTextAttribs
         textField.textAlignment = .center
-        textField.text = defaulText
+        if self.memeToModify != nil {
+            self.textFieldTop.text = self.memeToModify.topText
+            self.textFieldBottom.text = self.memeToModify.bottomText
+        } else {
+            textField.text = defaulText
+        }
+        
     }
     
     // MARK : Fix keyboard position
@@ -182,10 +193,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             if (completed && error == nil){
                 let meme = Meme(topText: self.textFieldTop.text!,
                                 bottomText: self.textFieldBottom.text!,
-                                originalImage: self.imagePickerView!,
+                                originalImage: self.imagePickerView.image!,
                                 memedImage: items[0]
                 )
-                // Add it to the memes array in the Application Delegate
+                // MARK: - Add it to the memes array in the Application Delegate
                 let object = UIApplication.shared.delegate
                 let appDelegate = object as! AppDelegate
                 appDelegate.memes.append(meme)

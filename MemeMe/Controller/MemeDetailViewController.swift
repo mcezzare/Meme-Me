@@ -24,4 +24,17 @@ class MemeDetailViewController : UIViewController{
         super.viewWillDisappear(animated)
         self.tabBarController?.tabBar.isHidden = false
     }
+    
+    // MARK: - To edit a created Meme
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editMeme))
+    }
+    
+    @objc func editMeme(){
+        let memeEditorViewController = storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
+        memeEditorViewController.memeToModify = meme
+        present(memeEditorViewController, animated: true)
+    }
+    
 }
