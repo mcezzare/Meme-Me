@@ -116,7 +116,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             .strokeColor: UIColor.black,
             .foregroundColor: UIColor.white,
             .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
-            .strokeWidth: Float(-5.0),
+            .strokeWidth: Float(-3.0),
             .paragraphStyle: paragraphStyle,
             // make the background transparent
             .backgroundColor: UIColor.clear,
