@@ -95,7 +95,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     
-    // MARK: UI Common style configs
+    // MARK: UI Common style configs of textFields
     let memeTextAttribs: [String:Any] = [
         NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
         NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
@@ -153,6 +153,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
+        
         
         // MARK: Show toolbar and navbar
         setToolbarHidden(false,animated: true)
