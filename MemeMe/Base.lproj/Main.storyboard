@@ -110,6 +110,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="P8x-Gu-6t6"/>
                     </view>
+                    <connections>
+                        <outlet property="memeImageView" destination="itq-wX-gPd" id="F1W-yr-beR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2n4-lQ-v5M" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -30,12 +30,21 @@ class SentMemesTableViewController : UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SentMemesTableViewCell", for: indexPath) as! SentMemesTableViewCell
         
         let meme = appDelegate.memes[indexPath.row]
-        print("#########DEBUG#######")
-        print(meme)
-        print("#########DEBUG#######")
         cell.thumbnailImageView.image = meme.memedImage
         cell.memeTitleLabel.text = "\(String(describing: meme.topText)) \(String(describing: meme.bottomText))"
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // MARK: to delete the item
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            appDelegate.memes.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     // MARK: Fix height size of row
