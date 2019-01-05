@@ -123,10 +123,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self)
-        /*
-         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-         NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-         */
     }
     
     
@@ -152,8 +148,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     func generateMemedImage() -> UIImage {
         // MARK: Hide toolbar and navbar
         setToolbarHidden(true,animated: true)
-        // MARK: Capture all Screen
-        // Render view to an image
+        // MARK: Capture all Screen and Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -165,8 +160,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     // MARK: Remove toolBar from ScreenShot
-    func setToolbarHidden(_ hidden: Bool,
-                          animated: Bool){
+    func setToolbarHidden(_ hidden: Bool, animated: Bool){
         self.toolbarTopBootom.isHidden = hidden
         self.toolbarBottomBootom.isHidden = hidden
     }
@@ -207,5 +201,3 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
 }
-
-
