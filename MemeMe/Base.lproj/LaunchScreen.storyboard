@@ -1,7 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,13 +17,52 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" image="ItunesArtwork" translatesAutoresizingMaskIntoConstraints="NO" id="Ecx-8b-8Iw">
+                                <rect key="frame" x="71" y="63" width="233" height="212"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="212" id="Tjz-dL-koK"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mario Cezzare Angelicola Chiodi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqk-EL-Nmd">
+                                <rect key="frame" x="71" y="340" width="248" height="57"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="57" id="qWe-LQ-juO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meme Me 2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dk3-oi-z8f">
+                                <rect key="frame" x="96" y="286" width="183" height="36"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bqk-EL-Nmd" firstAttribute="top" secondItem="dk3-oi-z8f" secondAttribute="bottom" constant="18" id="2JV-vc-Xxz"/>
+                            <constraint firstItem="Ecx-8b-8Iw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="43" id="Khf-eI-ftV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dk3-oi-z8f" secondAttribute="trailing" symbolic="YES" id="Oh2-Wh-May"/>
+                            <constraint firstItem="dk3-oi-z8f" firstAttribute="top" secondItem="Ecx-8b-8Iw" secondAttribute="bottom" constant="11" id="Vyf-W1-QCl"/>
+                            <constraint firstItem="Ecx-8b-8Iw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="b68-yG-9xD"/>
+                            <constraint firstItem="dk3-oi-z8f" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="cgy-Mk-PME"/>
+                            <constraint firstItem="Ecx-8b-8Iw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bqk-EL-Nmd" secondAttribute="leading" id="eHF-ot-pFp"/>
+                            <constraint firstItem="Ecx-8b-8Iw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="71" id="h3V-rh-TGI"/>
+                            <constraint firstItem="dk3-oi-z8f" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="96" id="ikC-JT-4uN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bqk-EL-Nmd" secondAttribute="trailing" constant="56" id="tNq-2m-d1Q"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="50.399999999999999" y="372.86356821589209"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ItunesArtwork" width="512" height="512"/>
+    </resources>
+    <color key="tintColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

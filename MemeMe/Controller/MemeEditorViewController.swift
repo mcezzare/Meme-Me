@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MemeMe
 //
 //  Created by Mario Cezzare on 03/12/18.
@@ -8,24 +8,9 @@
 
 import UIKit
 
-struct Meme{
-    var topText: String?
-    var bottomText: String?
-    var memedImage: UIImage?
-    var originalImage: UIImageView?
+class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
-    // MARK: init is not necessary
-    init(topText: String, bottomText: String, originalImage: UIImageView, memedImage: UIImage) {
-        self.topText = topText
-        self.bottomText = bottomText
-        self.originalImage = originalImage
-        self.memedImage = memedImage
-    }
-}
-
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     // MARK: Outlets
-    
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton : UIBarButtonItem!
     @IBOutlet weak var textFieldTop: UITextField!
@@ -36,32 +21,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cancelButton : UIBarButtonItem!
     @IBOutlet weak var shareButton : UIBarButtonItem!
     
-    //MARK : Instance names
+    // MARK: Instance names
     var currentImageSelected:UIImage?
     
+    // MARK: Editing Mode for a current Meme
+    var memeToModify:Meme!
     
-    //MARK: Delegates
+    // MARK: Delegates
     let myTextFieldDelegate = MyTextFieldDelegate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         // MARK: Textfields and TextField Delegate
         configureUI()
-        self.textFieldTop.delegate = self.myTextFieldDelegate
-        self.textFieldBottom.delegate = self.myTextFieldDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         shareButton.isEnabled = imagePickerView.image != nil
-        //        if let image = imagePickerView.image {
-        //            shareButton.isEnabled = true
-        //        } else{
-        //            shareButton.isEnabled = false
-        //        }
-        
         subscribeToKeyboardNotifications()
     }
     
@@ -98,6 +76,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         configureUI()
         self.imagePickerView.image = nil
         shareButton.isEnabled = false
+        // MARK: now back to memes list
+        dismiss(animated: true, completion: nil)
         
     }
     
@@ -117,30 +97,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     
-    // MARK: UI Common style configs
+    // MARK: UI Common style configs of textFields
+    let memeTextAttribs: [String:Any] = [
+        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+        NSAttributedStringKey.font.rawValue: UIFont(name: "Impact", size: 40)!,
+        NSAttributedStringKey.strokeWidth.rawValue: -2
+    ]
+    
     func configureUI(){
         configureTextProperties(textFieldTop, "TOP")
         configureTextProperties(textFieldBottom, "BOTTOM")
+        if self.memeToModify != nil {
+            self.imagePickerView.image = self.memeToModify.originalImage
+        }
     }
     
     func configureTextProperties(_ textField: UITextField, _ defaulText: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
+        textField.delegate = self.myTextFieldDelegate
+        textField.defaultTextAttributes = memeTextAttribs
+        textField.textAlignment = .center
+        if self.memeToModify != nil {
+            self.textFieldTop.text = self.memeToModify.topText
+            self.textFieldBottom.text = self.memeToModify.bottomText
+        } else {
+            textField.text = defaulText
+        }
         
-        let memeTextAttributes:[NSAttributedStringKey : Any] = [
-            .strokeColor: UIColor.black,
-            .foregroundColor: UIColor.white,
-            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
-            .strokeWidth: Float(-5.0),
-            .paragraphStyle: paragraphStyle,
-            // make the background transparent
-            .backgroundColor: UIColor.clear,
-            ]
-        textField.attributedText = NSAttributedString(string: defaulText,attributes: memeTextAttributes)
-        textField.text = defaulText
     }
-    
-    
     
     // MARK : Fix keyboard position
     func subscribeToKeyboardNotifications() {
@@ -150,10 +134,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func unsubscribeFromKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self)
-        /*
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide, object: nil)
-        */
     }
     
     
@@ -179,11 +159,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func generateMemedImage() -> UIImage {
         // MARK: Hide toolbar and navbar
         setToolbarHidden(true,animated: true)
-        // Render view to an image
+        // MARK: Capture all Screen and Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
+        
+        
         
         // MARK: Show toolbar and navbar
         setToolbarHidden(false,animated: true)
@@ -191,8 +173,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     // MARK: Remove toolBar from ScreenShot
-    func setToolbarHidden(_ hidden: Bool,
-                          animated: Bool){
+    func setToolbarHidden(_ hidden: Bool, animated: Bool){
         self.toolbarTopBootom.isHidden = hidden
         self.toolbarBottomBootom.isHidden = hidden
     }
@@ -212,11 +193,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if (completed && error == nil){
                 let meme = Meme(topText: self.textFieldTop.text!,
                                 bottomText: self.textFieldBottom.text!,
-                                originalImage: self.imagePickerView!,
+                                originalImage: self.imagePickerView.image!,
                                 memedImage: items[0]
                 )
-                UIImageWriteToSavedPhotosAlbum(meme.memedImage!, nil, nil, nil)
+                // MARK: - Add it to the memes array in the Application Delegate
+                let object = UIApplication.shared.delegate
+                let appDelegate = object as! AppDelegate
+                appDelegate.memes.append(meme)
+                
+                UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
                 self.notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
+                
             } else if( error != nil){
                 self.notifyUser(title: "Save error", message: error!.localizedDescription)
                 print("Error saving the meme \(error!.localizedDescription)")
@@ -227,5 +214,3 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
 }
-
-
