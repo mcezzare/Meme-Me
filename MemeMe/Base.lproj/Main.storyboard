@@ -179,7 +179,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jLi-Yo-TQG">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jLi-Yo-TQG">
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                         </imageView>
                                     </subviews>
@@ -262,16 +262,29 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0VD-oX-QTv">
                                 <rect key="frame" x="1" y="65" width="373" height="569"/>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="NMm-Im-g1X" userLabel="TOP">
-                                <rect key="frame" x="20" y="100" width="335" height="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="NMm-Im-g1X" userLabel="TOP">
+                                <rect key="frame" x="20" y="100" width="335" height="34.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="TOP">
+                                        <attributes>
+                                            <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <font key="NSFont" size="30" name="Helvetica-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-dH-HRI" userLabel="BOTTOM">
-                                <rect key="frame" x="20" y="566" width="335" height="21"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" usesAttributedText="YES" adjustsFontForContentSizeCategory="YES" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="ymd-dH-HRI" userLabel="BOTTOM">
+                                <rect key="frame" x="20" y="552.5" width="335" height="34.5"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="BOTTOM">
+                                        <attributes>
+                                            <font key="NSFont" size="30" name="Helvetica-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
@@ -305,8 +318,8 @@
                         <outlet property="cancelButton" destination="eNX-5W-H2P" id="033-wW-UG1"/>
                         <outlet property="imagePickerView" destination="0VD-oX-QTv" id="4ST-eU-mgH"/>
                         <outlet property="shareButton" destination="ona-U2-0tE" id="Vep-gq-hFr"/>
-                        <outlet property="textFieldBottom" destination="ymd-dH-HRI" id="FlJ-8Y-mMo"/>
-                        <outlet property="textFieldTop" destination="NMm-Im-g1X" id="yaC-1m-6rN"/>
+                        <outlet property="textFieldBottom" destination="ymd-dH-HRI" id="d0g-kq-uKJ"/>
+                        <outlet property="textFieldTop" destination="NMm-Im-g1X" id="cUh-og-GoY"/>
                         <outlet property="toolbarBottomBootom" destination="Qe7-T0-G1B" id="ERu-BO-n4k"/>
                         <outlet property="toolbarTopBootom" destination="BJc-tb-dsv" id="WrR-AO-MqK"/>
                     </connections>

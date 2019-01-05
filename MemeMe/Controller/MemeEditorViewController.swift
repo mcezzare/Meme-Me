@@ -30,23 +30,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         // MARK: Textfields and TextField Delegate
         configureUI()
-        self.textFieldTop.delegate = self.myTextFieldDelegate
-        self.textFieldBottom.delegate = self.myTextFieldDelegate
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         shareButton.isEnabled = imagePickerView.image != nil
-        //        if let image = imagePickerView.image {
-        //            shareButton.isEnabled = true
-        //        } else{
-        //            shareButton.isEnabled = false
-        //        }
-        
         subscribeToKeyboardNotifications()
     }
     
@@ -105,30 +96,24 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     // MARK: UI Common style configs
+    let memeTextAttribs: [String:Any] = [
+        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+        NSAttributedStringKey.font.rawValue: UIFont(name: "Impact", size: 40)!,
+        NSAttributedStringKey.strokeWidth.rawValue: -2
+    ]
+    
     func configureUI(){
         configureTextProperties(textFieldTop, "TOP")
         configureTextProperties(textFieldBottom, "BOTTOM")
     }
     
     func configureTextProperties(_ textField: UITextField, _ defaulText: String) {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        
-        let memeTextAttributes:[NSAttributedStringKey : Any] = [
-            .strokeColor: UIColor.black,
-            .foregroundColor: UIColor.white,
-            .font: UIFont(name: "Impact", size: 30)!,
-            //            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
-            .strokeWidth: Float(-2.0),
-            .paragraphStyle: paragraphStyle,
-            // make the background transparent
-            .backgroundColor: UIColor.clear,
-            ]
-        textField.attributedText = NSAttributedString(string: defaulText,attributes: memeTextAttributes)
+        textField.delegate = self.myTextFieldDelegate
+        textField.defaultTextAttributes = memeTextAttribs
+        textField.textAlignment = .center
         textField.text = defaulText
     }
-    
-    
     
     // MARK : Fix keyboard position
     func subscribeToKeyboardNotifications() {
