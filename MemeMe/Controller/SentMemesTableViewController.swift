@@ -14,6 +14,7 @@ class SentMemesTableViewController : UITableViewController {
     // MARK: Outlets
     @IBOutlet var sentMemesTableView: UITableView!
     
+    // MARK: Shared object
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewWillAppear(_ animated: Bool) {
@@ -21,11 +22,12 @@ class SentMemesTableViewController : UITableViewController {
         sentMemesTableView.reloadData()
     }
     
-    // MARK:init data and datasources
+    // MARK: Init data and datasources
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appDelegate.memes.count
     }
     
+    // MARK: Data table
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SentMemesTableViewCell", for: indexPath) as! SentMemesTableViewCell
         
@@ -39,12 +41,26 @@ class SentMemesTableViewController : UITableViewController {
         return true
     }
     
-    // MARK: to delete the item
+    // MARK: Send do Meme View
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let memeDetailViewController = storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
+        memeDetailViewController.meme = appDelegate.memes[(indexPath as NSIndexPath).row]
+        
+        navigationController!.pushViewController(memeDetailViewController, animated: true)
+    }
+    
+    // MARK: To delete the item
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             appDelegate.memes.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    // MARK: Allow complete drag left to delete Item
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.delete
     }
     
     // MARK: Fix height size of row
