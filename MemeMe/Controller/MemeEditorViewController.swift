@@ -209,7 +209,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
                 let appDelegate = object as! AppDelegate
                 appDelegate.memes.append(meme)
                 
-                UIImageWriteToSavedPhotosAlbum(meme.memedImage!, nil, nil, nil)
+                UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
                 self.notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
                 
             } else if( error != nil){

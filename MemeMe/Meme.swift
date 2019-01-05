@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 struct Meme {
-    var topText: String?
-    var bottomText: String?
-    var memedImage: UIImage?
-    var originalImage: UIImageView?
+    var topText: String
+    var bottomText: String
+    var memedImage: UIImage
+    var originalImage: UIImageView
     
 //    // MARK: init is not necessary
     init(topText: String, bottomText: String, originalImage: UIImageView, memedImage: UIImage) {
