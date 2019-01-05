@@ -45,27 +45,31 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zbQ-18-dwh" userLabel="Thumbnail Image View">
-                                            <rect key="frame" x="0.0" y="-43" width="205.5" height="205.5"/>
+                                            <rect key="frame" x="16" y="23" width="73.5" height="73.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="zbQ-18-dwh" secondAttribute="height" multiplier="1:1" id="rYa-bR-BYO"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YjP-CL-cHJ" userLabel="Meme Title Label">
-                                            <rect key="frame" x="260" y="48" width="48" height="24"/>
+                                            <rect key="frame" x="290" y="47" width="48" height="24"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="zbQ-18-dwh" firstAttribute="centerY" secondItem="YjP-CL-cHJ" secondAttribute="centerY" id="3Fn-kN-cAv"/>
-                                        <constraint firstItem="zbQ-18-dwh" firstAttribute="leading" secondItem="stO-2T-48Z" secondAttribute="leading" id="Dgr-RG-yH4"/>
+                                        <constraint firstItem="zbQ-18-dwh" firstAttribute="centerY" secondItem="YjP-CL-cHJ" secondAttribute="centerY" constant="0.75" id="3Fn-kN-cAv"/>
+                                        <constraint firstItem="zbQ-18-dwh" firstAttribute="leading" secondItem="stO-2T-48Z" secondAttribute="leading" constant="16" id="Dgr-RG-yH4"/>
                                         <constraint firstItem="YjP-CL-cHJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="zbQ-18-dwh" secondAttribute="trailing" constant="8" symbolic="YES" id="E83-X9-jy3"/>
-                                        <constraint firstItem="zbQ-18-dwh" firstAttribute="top" secondItem="stO-2T-48Z" secondAttribute="topMargin" constant="-54" id="Oyx-lx-0zL"/>
+                                        <constraint firstItem="zbQ-18-dwh" firstAttribute="top" secondItem="stO-2T-48Z" secondAttribute="topMargin" constant="12" id="Oyx-lx-0zL"/>
                                         <constraint firstItem="zbQ-18-dwh" firstAttribute="centerY" secondItem="stO-2T-48Z" secondAttribute="centerY" id="fPT-Ax-VXm"/>
-                                        <constraint firstAttribute="trailing" secondItem="YjP-CL-cHJ" secondAttribute="trailing" constant="67" id="gQA-wN-tqU"/>
+                                        <constraint firstAttribute="trailing" secondItem="YjP-CL-cHJ" secondAttribute="trailing" constant="37" id="gQA-wN-tqU"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="memeTitleLabel" destination="YjP-CL-cHJ" id="wEV-W6-fV2"/>
+                                    <outlet property="thumbnailImageView" destination="zbQ-18-dwh" id="psm-K7-A6T"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -88,7 +92,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypM-JO-hPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="-742"/>
+            <point key="canvasLocation" x="-71.200000000000003" y="-742.5787106446777"/>
         </scene>
         <!--Meme Detail View Controller-->
         <scene sceneID="Zih-bs-Cpd">
