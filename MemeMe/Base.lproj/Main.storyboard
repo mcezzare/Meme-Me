@@ -180,13 +180,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jLi-Yo-TQG">
-                                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="jLi-Yo-TQG" secondAttribute="trailing" constant="-75" id="Fzx-FP-jEq"/>
-                                    <constraint firstAttribute="bottom" secondItem="jLi-Yo-TQG" secondAttribute="bottom" constant="-75" id="Lu7-Uc-rPf"/>
+                                    <constraint firstAttribute="trailing" secondItem="jLi-Yo-TQG" secondAttribute="trailing" id="Fzx-FP-jEq"/>
+                                    <constraint firstAttribute="bottom" secondItem="jLi-Yo-TQG" secondAttribute="bottom" id="Lu7-Uc-rPf"/>
                                     <constraint firstItem="jLi-Yo-TQG" firstAttribute="top" secondItem="hgW-j1-UaK" secondAttribute="top" id="b1o-L0-zY9"/>
                                     <constraint firstItem="jLi-Yo-TQG" firstAttribute="leading" secondItem="hgW-j1-UaK" secondAttribute="leading" id="fba-PS-uFK"/>
                                 </constraints>
