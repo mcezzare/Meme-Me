@@ -83,6 +83,8 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         configureUI()
         self.imagePickerView.image = nil
         shareButton.isEnabled = false
+        // MARK: now back to memes list
+        dismiss(animated: true, completion: nil)
         
     }
     
@@ -115,8 +117,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let memeTextAttributes:[NSAttributedStringKey : Any] = [
             .strokeColor: UIColor.black,
             .foregroundColor: UIColor.white,
-            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
-            .strokeWidth: Float(-3.0),
+            .font: UIFont(name: "Impact", size: 30)!,
+            //            .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 30)!,
+            .strokeWidth: Float(-2.0),
             .paragraphStyle: paragraphStyle,
             // make the background transparent
             .backgroundColor: UIColor.clear,
@@ -171,13 +174,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        //        //MARK: capture only the UIImage view
-        //        UIGraphicsBeginImageContext(self.imagePickerView.frame.size)
-        //        view.drawHierarchy(in: self.imagePickerView.frame, afterScreenUpdates: true)
-        //        let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        //        UIGraphicsEndImageContext()
-        
-        
         // MARK: Show toolbar and navbar
         setToolbarHidden(false,animated: true)
         return memedImage
@@ -215,6 +211,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
                 
                 UIImageWriteToSavedPhotosAlbum(meme.memedImage!, nil, nil, nil)
                 self.notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
+                
             } else if( error != nil){
                 self.notifyUser(title: "Save error", message: error!.localizedDescription)
                 print("Error saving the meme \(error!.localizedDescription)")
