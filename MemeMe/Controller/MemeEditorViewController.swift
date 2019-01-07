@@ -32,13 +32,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         // MARK: Textfields and TextField Delegate
         configureUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         shareButton.isEnabled = imagePickerView.image != nil
         subscribeToKeyboardNotifications()
     }
@@ -50,23 +50,25 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: User Actions
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        self.getAnImage(source: "album")
+//        self.openImagePicker(source: "album")
+        self.openImagePicker(UIImagePickerController.SourceType.photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        self.getAnImage(source: "camera")
+//        self.openImagePicker(source: "camera")
+        self.openImagePicker(UIImagePickerController.SourceType.camera)
     }
     
     // MARK: Choose image from album or camera
-    func  getAnImage( source: String ){
+    func  openImagePicker( _ type: UIImagePickerController.SourceType){
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        
-        if source == "album" {
-            pickerController.sourceType = .photoLibrary
-        } else if source == "camera"{
-            pickerController.sourceType = .camera
-        }
+        pickerController.sourceType = type
+//        if source == "album" {
+//            pickerController.sourceType = .photoLibrary
+//        } else if source == "camera"{
+//            pickerController.sourceType = .camera
+//        }
         
         present(pickerController, animated: true, completion: nil)
         
@@ -76,7 +78,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         configureUI()
         self.imagePickerView.image = nil
         shareButton.isEnabled = false
-        // MARK: now back to memes list
+        // Now back to memes list
         dismiss(animated: true, completion: nil)
         
     }
@@ -153,7 +155,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         view.frame.origin.y = 0
     }
     
-    // MARK: Meme Operations
+    // MARK: - Meme Operations
     
     // MARK: Get the screenshot of current Meme
     func generateMemedImage() -> UIImage {
