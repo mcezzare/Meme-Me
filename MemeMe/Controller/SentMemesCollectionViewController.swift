@@ -27,8 +27,19 @@ class SentMemesCollectionViewController: UICollectionViewController {
         sentMemesCollectionView.reloadData()
         //sentMemesCollectionView.allowsMultipleSelection = true
         flowLayout.minimumLineSpacing = 1
-        flowLayout.minimumInteritemSpacing = 1
-        flowLayout.itemSize = CGSize(width: 135, height: 135)
+        // To show more cells when device is in landscape orientation
+        let space: CGFloat
+        let dimension: CGFloat
+        if (UIDeviceOrientationIsPortrait(UIDevice.current.orientation)) { //swift 4.2 if (UIDevice.current.orientation.isPortrait) {
+            space = 3.0
+            dimension = (view.frame.size.width - (2 * space)) / 3
+        } else {
+            space = 1.0
+            dimension = (view.frame.size.width - (1 * space)) / 5
+        }
+        
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
     
     // MARK: Init data and datasources

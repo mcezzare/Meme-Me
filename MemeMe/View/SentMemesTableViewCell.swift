@@ -12,5 +12,5 @@ import UIKit
 class SentMemesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var memeTitleLabel: UILabel!    
+    @IBOutlet weak var memeTitleLabel: UILabel!
 }

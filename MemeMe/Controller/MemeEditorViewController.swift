@@ -50,12 +50,10 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: User Actions
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-//        self.openImagePicker(source: "album")
         self.openImagePicker(UIImagePickerController.SourceType.photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
-//        self.openImagePicker(source: "camera")
         self.openImagePicker(UIImagePickerController.SourceType.camera)
     }
     
@@ -64,14 +62,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
         pickerController.sourceType = type
-//        if source == "album" {
-//            pickerController.sourceType = .photoLibrary
-//        } else if source == "camera"{
-//            pickerController.sourceType = .camera
-//        }
-        
         present(pickerController, animated: true, completion: nil)
-        
     }
     
     @IBAction func resetUI(){
@@ -80,7 +71,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         shareButton.isEnabled = false
         // Now back to memes list
         dismiss(animated: true, completion: nil)
-        
     }
     
     // MARK: From UIImagePickerControllerDelegate
@@ -97,7 +87,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         print("User cancelled selection")
         dismiss(animated: true, completion: nil)
     }
-    
     
     // MARK: UI Common style configs of textFields
     let memeTextAttribs: [String:Any] = [
@@ -167,8 +156,6 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        
-        
         // MARK: Show toolbar and navbar
         setToolbarHidden(false,animated: true)
         return memedImage
@@ -190,13 +177,14 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     // MARK: Share the Meme and if success , save the image to the album
     @IBAction func share() {
         let items = [generateMemedImage()]
-        let ac = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        ac.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        activityVC.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
             if (completed && error == nil){
                 let meme = Meme(topText: self.textFieldTop.text!,
                                 bottomText: self.textFieldBottom.text!,
-                                originalImage: self.imagePickerView.image!,
-                                memedImage: items[0]
+                                memedImage: items[0],
+                                originalImage: self.imagePickerView.image!
+                    
                 )
                 // MARK: - Add it to the memes array in the Application Delegate
                 let object = UIApplication.shared.delegate
@@ -210,9 +198,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
                 self.notifyUser(title: "Save error", message: error!.localizedDescription)
                 print("Error saving the meme \(error!.localizedDescription)")
             }
-            
         }
-        present(ac, animated: true)
+        present(activityVC, animated: true)
+        // Fix for IPad devices don't crash
+        if let popOver = activityVC.popoverPresentationController{
+            popOver.sourceView = self.view
+        }
     }
     
 }
