@@ -143,7 +143,7 @@ The app store icons generated with this great tool: [Makeappicon](https://makeap
 
 ## To Do
 
-In this stage of the course there was still no known "data persistence", but a good option would be to write this list when the application closes so that the "source" of the created memes is lost and the user can continue the collection.
+In this stage of the course there was still no known "data persistence", but a good option would be to write this list when the application closes so that the "source" of the created memes is not lost and the user can continue the collection.
 To do this, the original images and memes must be saved.
 As soon as possible in an upcoming release ...
 
