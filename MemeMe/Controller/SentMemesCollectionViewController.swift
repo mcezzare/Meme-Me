@@ -11,18 +11,20 @@ import UIKit
 
 class SentMemesCollectionViewController: UICollectionViewController {
     
-    //MARK: Outlets
+    //MARK: - Outlets
     @IBOutlet var sentMemesCollectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
-    // MARK: Shared object
+    // MARK: - Shared object
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         resetUIDefaultState()
     }
     
+    // MARK: - Functions
     private func resetUIDefaultState(){
         sentMemesCollectionView.reloadData()
         //sentMemesCollectionView.allowsMultipleSelection = true
@@ -42,7 +44,9 @@ class SentMemesCollectionViewController: UICollectionViewController {
         flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
     
-    // MARK: Init data and datasources
+    // MARK: - Delegates
+    
+    //Init data and datasources
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return appDelegate.memes.count
     }
@@ -55,7 +59,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
         return cell
     }
     
-    // MARK: Send do Meme View
+    //Send to Meme View
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let memeDetailViewController = storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
         memeDetailViewController.meme = appDelegate.memes[(indexPath as NSIndexPath).row]

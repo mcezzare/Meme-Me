@@ -11,6 +11,8 @@ import UIKit
 
 class SentMemesCollectionViewCell : UICollectionViewCell{
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var backgroundImageView: UIImageView!
     
 }

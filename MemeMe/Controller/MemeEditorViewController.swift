@@ -10,7 +10,7 @@ import UIKit
 
 class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
-    // MARK: Outlets
+    // MARK: - Outlets
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton : UIBarButtonItem!
     @IBOutlet weak var textFieldTop: UITextField!
@@ -21,19 +21,32 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var cancelButton : UIBarButtonItem!
     @IBOutlet weak var shareButton : UIBarButtonItem!
     
-    // MARK: Instance names
+    // MARK: - Properties
     var currentImageSelected:UIImage?
     
-    // MARK: Editing Mode for a current Meme
+    //UI Common style configs of textFields
+    let memeTextAttribs: [String:Any] = [
+        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+        NSAttributedStringKey.font.rawValue: UIFont(name: "Impact", size: 40)!,
+        NSAttributedStringKey.strokeWidth.rawValue: -2
+    ]
+    
+    
+    
+    // Editing Mode for a current Meme
     var memeToModify:Meme!
     
-    // MARK: Delegates
+    // MARK: - Delegates
+    
     let myTextFieldDelegate = MyTextFieldDelegate()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        // MARK: Textfields and TextField Delegate
+        //Textfields and TextField Delegate
         configureUI()
     }
     
@@ -48,21 +61,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         unsubscribeFromKeyboardNotifications()
     }
     
-    // MARK: User Actions
+    // MARK: - Actions
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
         self.openImagePicker(UIImagePickerController.SourceType.photoLibrary)
     }
     
     @IBAction func pickAnImageFromCamera(_ sender: Any) {
         self.openImagePicker(UIImagePickerController.SourceType.camera)
-    }
-    
-    // MARK: Choose image from album or camera
-    func  openImagePicker( _ type: UIImagePickerController.SourceType){
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = type
-        present(pickerController, animated: true, completion: nil)
     }
     
     @IBAction func resetUI(){
@@ -73,7 +78,58 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: From UIImagePickerControllerDelegate
+    //Share the Meme and if success , save the image to the album
+    @IBAction func share() {
+        let items = [generateMemedImage()]
+        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        activityVC.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+            if (completed && error == nil){
+                let meme = Meme(topText: self.textFieldTop.text!,
+                                bottomText: self.textFieldBottom.text!,
+                                memedImage: items[0],
+                                originalImage: self.imagePickerView.image!
+                    
+                )
+                //Add it to the memes array in the Application Delegate
+                let object = UIApplication.shared.delegate
+                let appDelegate = object as! AppDelegate
+                appDelegate.memes.append(meme)
+                
+                UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
+                self.notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
+                
+            } else if( error != nil){
+                self.notifyUser(title: "Save error", message: error!.localizedDescription)
+                print("Error saving the meme \(error!.localizedDescription)")
+            }
+        }
+        present(activityVC, animated: true)
+        // Fix for IPad devices don't crash
+        if let popOver = activityVC.popoverPresentationController{
+            popOver.sourceView = self.view
+        }
+    }
+    
+    // MARK: - Functions
+    
+    /// Choose image from album or camera
+    ///
+    /// - Parameter type: source: camera or album
+    func  openImagePicker( _ type: UIImagePickerController.SourceType){
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.sourceType = type
+        present(pickerController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Delegates
+    
+    /// From UIImagePickerControllerDelegate
+    ///
+    /// - Parameters:
+    ///   - picker: picker description
+    ///   - info: Array of itens
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage{
@@ -88,13 +144,7 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: UI Common style configs of textFields
-    let memeTextAttribs: [String:Any] = [
-        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
-        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-        NSAttributedStringKey.font.rawValue: UIFont(name: "Impact", size: 40)!,
-        NSAttributedStringKey.strokeWidth.rawValue: -2
-    ]
+    // MARK: - Helpers
     
     func configureUI(){
         configureTextProperties(textFieldTop, "TOP")
@@ -117,7 +167,9 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
         
     }
     
-    // MARK : Fix keyboard position
+    // MARK: - Notification Center
+    
+    //Fix keyboard position
     func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: .UIKeyboardWillHide, object: nil)
@@ -146,64 +198,34 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     
     // MARK: - Meme Operations
     
-    // MARK: Get the screenshot of current Meme
+    //Get the screenshot of current Meme
     func generateMemedImage() -> UIImage {
-        // MARK: Hide toolbar and navbar
+        //Hide toolbar and navbar
         setToolbarHidden(true,animated: true)
-        // MARK: Capture all Screen and Render view to an image
+        //Capture all Screen and Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        // MARK: Show toolbar and navbar
+        //Show toolbar and navbar
         setToolbarHidden(false,animated: true)
         return memedImage
     }
     
-    // MARK: Remove toolBar from ScreenShot
+    //Remove toolBar from ScreenShot
     func setToolbarHidden(_ hidden: Bool, animated: Bool){
         self.toolbarTopBootom.isHidden = hidden
         self.toolbarBottomBootom.isHidden = hidden
     }
     
-    // MARK: Alert user about the save operation of meme
+    //Alert user about the save operation of meme
     func notifyUser(title: String, message: String){
         let ac = UIAlertController(title: title, message: message , preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true, completion: nil)
     }
     
-    // MARK: Share the Meme and if success , save the image to the album
-    @IBAction func share() {
-        let items = [generateMemedImage()]
-        let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        activityVC.completionWithItemsHandler = { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
-            if (completed && error == nil){
-                let meme = Meme(topText: self.textFieldTop.text!,
-                                bottomText: self.textFieldBottom.text!,
-                                memedImage: items[0],
-                                originalImage: self.imagePickerView.image!
-                    
-                )
-                // MARK: - Add it to the memes array in the Application Delegate
-                let object = UIApplication.shared.delegate
-                let appDelegate = object as! AppDelegate
-                appDelegate.memes.append(meme)
-                
-                UIImageWriteToSavedPhotosAlbum(meme.memedImage, nil, nil, nil)
-                self.notifyUser(title: "Saved!", message: "Your altered image has been saved to your photos.")
-                
-            } else if( error != nil){
-                self.notifyUser(title: "Save error", message: error!.localizedDescription)
-                print("Error saving the meme \(error!.localizedDescription)")
-            }
-        }
-        present(activityVC, animated: true)
-        // Fix for IPad devices don't crash
-        if let popOver = activityVC.popoverPresentationController{
-            popOver.sourceView = self.view
-        }
-    }
+    
     
 }

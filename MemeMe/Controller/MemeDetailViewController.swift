@@ -11,9 +11,15 @@ import UIKit
 
 
 class MemeDetailViewController : UIViewController{
-    var meme: Meme!
+    
+    // MARK: - Outlets
+    
     @IBOutlet var memeImageView: UIImageView!
     
+    // MARK: - Properties
+    var meme: Meme!
+    
+    // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         memeImageView.image = meme.memedImage
@@ -25,12 +31,13 @@ class MemeDetailViewController : UIViewController{
         self.tabBarController?.tabBar.isHidden = false
     }
     
-    // MARK: - To edit a created Meme
+    //To edit a created Meme, add a edit button on navigation bar
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editMeme))
     }
     
+    // MARK: - Segues
     @objc func editMeme(){
         let memeEditorViewController = storyboard!.instantiateViewController(withIdentifier: "MemeEditorViewController") as! MemeEditorViewController
         memeEditorViewController.memeToModify = meme
