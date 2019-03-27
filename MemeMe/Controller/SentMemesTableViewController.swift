@@ -11,23 +11,26 @@ import UIKit
 
 class SentMemesTableViewController : UITableViewController {
     
-    // MARK: Outlets
+    // MARK: - Outlets
     @IBOutlet var sentMemesTableView: UITableView!
     
-    // MARK: Shared object
+    // MARK: - Shared object
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    // MARK: - Life Cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         sentMemesTableView.reloadData()
     }
     
-    // MARK: Init data and datasources
+    // MARK: - Delegates
+    
+    //Init data and datasources
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return appDelegate.memes.count
     }
     
-    // MARK: Data table
+    //Data table
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SentMemesTableViewCell", for: indexPath) as! SentMemesTableViewCell
         
@@ -41,7 +44,7 @@ class SentMemesTableViewController : UITableViewController {
         return true
     }
     
-    // MARK: Send do Meme View
+    //Send do Meme View
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let memeDetailViewController = storyboard!.instantiateViewController(withIdentifier: "MemeDetailViewController") as! MemeDetailViewController
@@ -50,7 +53,7 @@ class SentMemesTableViewController : UITableViewController {
         navigationController!.pushViewController(memeDetailViewController, animated: true)
     }
     
-    // MARK: To delete the item
+    //To delete the item
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             appDelegate.memes.remove(at: indexPath.row)
@@ -58,12 +61,12 @@ class SentMemesTableViewController : UITableViewController {
         }
     }
     
-    // MARK: Allow complete drag left to delete Item
+    //Allow complete drag left to delete Item
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
         return UITableViewCellEditingStyle.delete
     }
     
-    // MARK: Fix height size of row
+    //Fix height size of row
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120.0
     }
