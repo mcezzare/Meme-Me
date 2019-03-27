@@ -63,5 +63,6 @@ The contents of this repository are covered under the [MIT License](LICENSE.txt)
 
 ## Other Resources
 
+List and Grid icons from (Iconfinder)[https://www.iconfinder.com]
 
-some icons from (Iconfinder)[https://www.iconfinder.com]
+The app store icons generated with this great tool:[Makeappicon](https://makeappicon.com/)
